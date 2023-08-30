@@ -1,0 +1,18 @@
+[submodule "cdt-llvm"]
+	path = cdt-llvm
+	url = https://github.com/AntelopeIO/cdt-llvm
+[submodule "libraries/libc/cdt-musl"]
+	path = libraries/libc/cdt-musl
+	url = https://github.com/AntelopeIO/cdt-musl
+[submodule "libraries/libc++/cdt-libcxx"]
+	path = libraries/libc++/cdt-libcxx
+	url = https://github.com/AntelopeIO/cdt-libcxx
+[submodule "libraries/native/softfloat"]
+	path = libraries/native/softfloat
+	url = https://github.com/AntelopeIO/berkeley-softfloat-3
+[submodule "tools/external/eos-vm"]
+	path = tools/external/eos-vm
+	url = https://github.com/AntelopeIO/eos-vm
+[submodule "tools/external/antler-proj"]
+	path = tools/external/antler-proj
+	url = https://github.com/AntelopeIO/antler-proj
