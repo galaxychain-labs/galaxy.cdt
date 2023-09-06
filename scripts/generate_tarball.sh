@@ -57,23 +57,23 @@ create_symlink() {
    ln -sf ../${SUBPREFIX}/bin/$1 ${PREFIX}/bin/$2 || exit 1
 }
 
-create_symlink cdt-cc cdt-cc
-create_symlink cdt-cpp cdt-cpp
-create_symlink cdt-ld cdt-ld
-create_symlink eosio-pp eosio-pp
-create_symlink cdt-init cdt-init
-create_symlink eosio-wasm2wast eosio-wasm2wast
-create_symlink eosio-wast2wasm eosio-wast2wasm
-create_symlink eosio-wasm2wast cdt-wasm2wast
-create_symlink eosio-wast2wasm cdt-wast2wasm
-create_symlink cdt-ar cdt-ar
-create_symlink cdt-abidiff cdt-abidiff
-create_symlink cdt-nm cdt-nm
-create_symlink cdt-objcopy cdt-objcopy
-create_symlink cdt-objdump cdt-objdump
-create_symlink cdt-ranlib cdt-ranlib
-create_symlink cdt-readelf cdt-readelf
-create_symlink cdt-strip cdt-strip
+create_symlink gax-cc gax-cc
+create_symlink gax-cpp gax-cpp
+create_symlink gax-ld gax-ld
+create_symlink gax-pp gax-pp
+create_symlink gax-init gax-init
+create_symlink gax-wasm2wast gax-wasm2wast
+create_symlink gax-wast2wasm gax-wast2wasm
+create_symlink gax-wasm2wast cdt-wasm2wast
+create_symlink gax-wast2wasm cdt-wast2wasm
+create_symlink gax-ar gax-ar
+create_symlink gax-abidiff gax-abidiff
+create_symlink gax-nm gax-nm
+create_symlink gax-objcopy gax-objcopy
+create_symlink gax-objdump gax-objdump
+create_symlink gax-ranlib gax-ranlib
+create_symlink gax-readelf gax-readelf
+create_symlink gax-strip gax-strip
 create_symlink antler-proj antler-proj
 create_symlink antler-proj cdt-proj
 
