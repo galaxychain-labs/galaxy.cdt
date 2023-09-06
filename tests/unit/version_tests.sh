@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
-# The purpose of this test is to ensure that the output of the "cdt-cpp --version" command matches the version string defined by our CMake files
-echo '##### cdt-cpp Version Label Test #####'
+# The purpose of this test is to ensure that the output of the "gax-cpp --version" command matches the version string defined by our CMake files
+echo '##### gax-cpp Version Label Test #####'
 # orient ourselves
 [[ -z "$BUILD_ROOT" ]] && export BUILD_ROOT="$(pwd)"
 echo "Using BUILD_ROOT=\"$BUILD_ROOT\"."
@@ -12,19 +12,19 @@ if [[ -z "$EXPECTED" ]]; then
     else
         export VERSION="$1"
     fi
-    export EXPECTED="cdt-cpp version $VERSION"
+    export EXPECTED="gax-cpp version $VERSION"
 fi
 if [[ -z "$EXPECTED" ]]; then
     echo "Missing version input."
     exit 1
 fi
 echo "Expecting \"$EXPECTED\"..."
-# get cdt-cpp version
-ACTUAL=$($BUILD_ROOT/bin/cdt-cpp --version)
+# get gax-cpp version
+ACTUAL=$($BUILD_ROOT/bin/gax-cpp --version)
 EXIT_CODE=$?
 # verify 0 exit code explicitly
 if [[ $EXIT_CODE -ne 0 ]]; then
-    echo "cdt-cpp produced non-zero exit code \"$EXIT_CODE\"."
+    echo "gax-cpp produced non-zero exit code \"$EXIT_CODE\"."
     exit $EXIT_CODE
 fi
 # test version

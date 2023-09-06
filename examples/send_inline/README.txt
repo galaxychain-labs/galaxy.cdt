@@ -11,9 +11,9 @@
 
  - Additions to CMake should be done to the CMakeLists.txt in the './src' directory and not in the top level CMakeLists.txt
 
- -- How to build with cdt-cpp --
+ -- How to build with gax-cpp --
    - cd into the 'build' directory
-   - run the command 'cdt-cpp -abigen ../src/send_inline.cpp -o send_inline.wasm -I ../include/ -I ../../hello/include/'
+   - run the command 'gax-cpp -abigen ../src/send_inline.cpp -o send_inline.wasm -I ../include/ -I ../../hello/include/'
 
  - After build -
    - The built smart contract is in the 'build' directory

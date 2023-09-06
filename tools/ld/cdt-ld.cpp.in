@@ -16,9 +16,9 @@ using namespace llvm;
 int main(int argc, const char **argv) {
 
   cl::SetVersionPrinter([](llvm::raw_ostream& os) {
-        os << "cdt-ld version " << "${VERSION_FULL}" << "\n";
+        os << "gax-ld version " << "${VERSION_FULL}" << "\n";
   });
-  cl::ParseCommandLineOptions(argc, argv, "cdt-ld (WebAssembly linker)");
+  cl::ParseCommandLineOptions(argc, argv, "gax-ld (WebAssembly linker)");
   Options opts = CreateOptions();
 
   std::string line;
@@ -42,13 +42,13 @@ int main(int argc, const char **argv) {
 
   // finally any post processing
   if (!fno_post_pass_opt && !opts.native && !opts.shared_lib) {
-     if ( !llvm::sys::fs::exists( opts.eosio_pp_dir+"/eosio-pp" ) ) {
-        std::cerr << "Error: eosio.pp not found! (Try reinstalling eosio.cdt)" << std::endl;
+     if ( !llvm::sys::fs::exists( opts.gax_pp_dir+"/gax-pp" ) ) {
+        std::cerr << "Error: gax.pp not found! (Try reinstalling gax.cdt)" << std::endl;
         return -1;
      }
 
-     if (!eosio::cdt::environment::exec_subprogram("eosio-pp", {opts.output_fn})) {
-        std::cerr << "eosio-pp failed" << std::endl;
+     if (!eosio::cdt::environment::exec_subprogram("gax-pp", {opts.output_fn})) {
+        std::cerr << "gax-pp failed" << std::endl;
         return -1;
      }
 

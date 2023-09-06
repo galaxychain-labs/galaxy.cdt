@@ -46,7 +46,7 @@ class Test(ABC):
         args = cf if cf else []
         args = [arg.replace("{cwd}", self.test_suite.directory) for arg in args]
 
-        cdt_cpp = os.path.join(self.test_suite.cdt_path, "cdt-cpp")
+        cdt_cpp = os.path.join(self.test_suite.cdt_path, "gax-cpp")
         self._run(cdt_cpp, args)
 
     def handle_test_result(self, res: subprocess.CompletedProcess, expected_pass=True):

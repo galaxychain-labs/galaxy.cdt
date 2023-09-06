@@ -47,7 +47,7 @@ static std::unique_ptr<FileStream> s_log_stream;
 static const char s_description[] =
 R"(  Read a file in the WebAssembly binary format, strip bss or any data segment that is only initialized to zeros, and other post processing.
 
-  $ eosio-pp test.wasm -o test.stripped.wasm
+  $ gax-pp test.wasm -o test.stripped.wasm
 
   # or original replacement
   $ wasm2wat test.wasm

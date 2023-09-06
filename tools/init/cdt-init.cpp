@@ -101,7 +101,7 @@ struct project {
 
    const std::string readme_bare = " --- @ Project ---\n\n"
                                    " - How to Build -\n"
-                                   "   - run the command 'cdt-cpp -abigen -o @.wasm @.cpp'\n";
+                                   "   - run the command 'gax-cpp -abigen -o @.wasm @.cpp'\n";
 
    std::string replace_name( const std::string& in ) {
       std::stringstream ss;
@@ -185,9 +185,9 @@ struct project {
 int main(int argc, const char **argv) {
 
    cl::SetVersionPrinter([](llvm::raw_ostream& os) {
-        os << "cdt-init version " << "@VERSION_FULL@" << "\n";
+        os << "gax-init version " << "@VERSION_FULL@" << "\n";
   });
-   cl::OptionCategory cat("cdt-init", "generates an cdt smart contract project");
+   cl::OptionCategory cat("gax-init", "generates an cdt smart contract project");
 
    cl::opt<bool> bare_opt(
       "bare",
