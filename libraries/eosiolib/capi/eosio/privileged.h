@@ -123,6 +123,16 @@ void set_kv_parameters_packed( const char* data, uint32_t datalen );
 __attribute__((eosio_wasm_import))
 void preactivate_feature( const struct capi_checksum256* feature_digest );
 
+/**
+ * Register shard, include `enabled` status.
+ *
+ * @ingroup privileged
+ * @param name - name of the shard that we want to register.
+ * @param enabled - enabled status (true or false).
+ */
+__attribute__((eosio_wasm_import))
+void register_shard( capi_name name, bool enabled );
+
 #ifdef __cplusplus
 }
 #endif

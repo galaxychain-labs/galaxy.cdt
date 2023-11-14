@@ -7,6 +7,7 @@ set_proposed_producers_ex : yes
 set_blockchain_parameters_packed : yes
 set_parameters_packed : yes
 set_privileged  : yes
+regshard  : yes
 send_deferred : yes
 */
 
@@ -120,6 +121,14 @@ public:
       bool ispr = is_privileged("eosio"_n);
       eosio::cout << "eosio is privileged : " << ispr << "\n";
       set_privileged("eosio"_n, ispr);
+      return true;
+   }
+   ACTION_TYPE
+   bool regshard() {
+      auto shard = "sub.shard1"_n;
+      auto enabled = true;
+      eosio::cout << "register shard:" << shard.to_string() << ", enabled:" << enabled << "\n";
+      register_shard(shard, enabled);
       return true;
    }
 /*  all tested

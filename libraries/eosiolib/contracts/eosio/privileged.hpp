@@ -35,6 +35,9 @@ namespace eosio {
 
          __attribute__((eosio_wasm_import))
          int64_t set_proposed_producers_ex( uint64_t producer_data_format, char *producer_data, uint32_t producer_data_size );
+
+         __attribute__((eosio_wasm_import))
+         void register_shard( uint64_t name, bool enabled );
       }
    }
 
@@ -272,4 +275,15 @@ namespace eosio {
       );
    }
 
+   /**
+    * Register shard, include `enabled` status.
+    *
+    * @ingroup privileged
+    * @param name - name of the shard that we want to register.
+    * @param enabled - enabled status (true or false).
+    */
+   __attribute__((eosio_wasm_import))
+   void register_shard( name name, bool enabled ) {
+      internal_use_do_not_use::register_shard( name.value, enabled );
+   }
 }

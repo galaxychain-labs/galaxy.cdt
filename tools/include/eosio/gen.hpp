@@ -913,7 +913,8 @@ struct generation_utils {
          "shared_db_idx_long_double_remove",
          "send_deferred",
          "send_inline",
-         "send_context_free_inline"
+         "send_context_free_inline",
+         "register_shard"
       };
 
       return write_host_funcs.count(func_decl->getNameInfo().getAsString()) >= 1;
