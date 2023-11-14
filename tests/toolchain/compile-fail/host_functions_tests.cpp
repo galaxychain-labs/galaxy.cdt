@@ -1,7 +1,7 @@
 /*  host functions which are not allowed to use in read only query contract, so the functions should never return true. it should compile failed (compile time)  or throw exception(run time).
 set_resource_limits : yes
 set_wasm_parameters_packed : yes
-set_resource_limit : yes 
+set_resource_limit : yes
 set_proposed_producers : yes
 set_proposed_producers_ex : yes
 set_blockchain_parameters_packed : yes
@@ -49,6 +49,25 @@ extern "C" __attribute__((eosio_wasm_import)) int32_t db_idx_long_double_store(u
 extern "C" __attribute__((eosio_wasm_import)) void db_idx_long_double_update(int32_t iterator, capi_name payer, const long double* secondary);
 extern "C" __attribute__((eosio_wasm_import)) void db_idx_long_double_remove(int32_t iterator);
 
+extern "C" __attribute__((eosio_wasm_import)) int32_t shared_db_store_i64(uint64_t scope, capi_name table, capi_name payer, uint64_t id,  const void* data, uint32_t len);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_update_i64(int32_t iterator, capi_name payer, const void* data, uint32_t len);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_remove_i64(int32_t iterator);
+extern "C" __attribute__((eosio_wasm_import)) int32_t shared_db_idx64_store(uint64_t scope, capi_name table, capi_name payer, uint64_t id, const uint64_t* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx64_update(int32_t iterator, capi_name payer, const uint64_t* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx64_remove(int32_t iterator);
+extern "C" __attribute__((eosio_wasm_import)) int32_t shared_db_idx128_store(uint64_t scope, capi_name table, capi_name payer, uint64_t id, const uint128_t* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx128_update(int32_t iterator, capi_name payer, const uint128_t* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx128_remove(int32_t iterator);
+extern "C" __attribute__((eosio_wasm_import)) int32_t shared_db_idx256_store(uint64_t scope, capi_name table, capi_name payer, uint64_t id, const uint128_t* data, uint32_t data_len );
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx256_update(int32_t iterator, capi_name payer, const uint128_t* data, uint32_t data_len);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx256_remove(int32_t iterator);
+extern "C" __attribute__((eosio_wasm_import)) int32_t shared_db_idx_double_store(uint64_t scope, capi_name table, capi_name payer, uint64_t id, const double* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx_double_update(int32_t iterator, capi_name payer, const double* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx_double_remove(int32_t iterator);
+extern "C" __attribute__((eosio_wasm_import)) int32_t shared_db_idx_long_double_store(uint64_t scope, capi_name table, capi_name payer, uint64_t id, const long double* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx_long_double_update(int32_t iterator, capi_name payer, const long double* secondary);
+extern "C" __attribute__((eosio_wasm_import)) void shared_db_idx_long_double_remove(int32_t iterator);
+
 extern "C" __attribute__((eosio_wasm_import)) void send_deferred(const uint128_t&, uint64_t, const char*, size_t, uint32_t);
 extern "C" __attribute__((eosio_wasm_import)) int64_t set_proposed_producers( char*, uint32_t );
 extern "C" __attribute__((eosio_wasm_import)) int64_t set_proposed_producers_ex( uint64_t producer_data_format, char *producer_data, uint32_t producer_data_size );
@@ -63,7 +82,7 @@ extern "C" __attribute__((eosio_wasm_import)) void send_context_free_inline(char
 class [[eosio::contract]] host_functions_tests : public eosio::contract {
 public:
    using contract::contract;
-    
+
    ACTION_TYPE
    bool resource() {
       int64_t ram_bytes;
@@ -93,19 +112,19 @@ public:
       char buf[sizeof(eosio::blockchain_parameters)];
       size_t size = get_blockchain_parameters_packed( buf, sizeof(buf) );
       eosio::cout << "Block chain parameter size : " << size << "\n";
-      set_blockchain_parameters_packed(buf, size); 
+      set_blockchain_parameters_packed(buf, size);
       return true;
    }
    ACTION_TYPE
    bool setpriv() {
       bool ispr = is_privileged("eosio"_n);
       eosio::cout << "eosio is privileged : " << ispr << "\n";
-      set_privileged("eosio"_n, ispr);      
+      set_privileged("eosio"_n, ispr);
       return true;
    }
 /*  all tested
-db_store_i64 
-db_update_i64 
+db_store_i64
+db_update_i64
 db_remove_i64
 db_idx64_store
 db_idx64_update
@@ -215,6 +234,120 @@ db_idx_long_double_remove
       db_idx_long_double_remove(0);
       return true;
    }
+
+/*  all tested
+shared_db_store_i64
+shared_db_update_i64
+shared_db_remove_i64
+shared_db_idx64_store
+shared_db_idx64_update
+shared_db_idx64_remove
+shared_db_idx128_store
+shared_db_idx128_update
+shared_db_idx128_remove
+shared_db_idx256_store
+shared_db_idx256_update
+shared_db_idx256_remove
+shared_db_idx_double_store
+shared_db_idx_double_update
+shared_db_idx_double_remove
+shared_db_idx_long_double_store
+shared_db_idx_long_double_update
+shared_db_idx_long_double_remove
+*/
+// abcde  means 67890  a4 means 64  12c means 128 so as to no conflict with naming rule
+// Name should be less than 13 characters and only contains the following symbol 12345abcdefghijklmnopqrstuvwxyz
+   ACTION_TYPE
+   bool sdbia4s(){
+      shared_db_store_i64(0, 0, 0, 0, NULL, 0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbia4u(){
+      shared_db_update_i64(0, 0, NULL, 0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbia4r(){
+      shared_db_remove_i64(0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxa4s() {
+      shared_db_idx64_store(0, 0, 0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxa4u() {
+      shared_db_idx64_update(0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxa4r() {
+      shared_db_idx64_remove(0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidx12cs() {
+      shared_db_idx128_store(0, 0, 0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidx12cu() {
+      shared_db_idx128_update(0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidx12cr() {
+      shared_db_idx128_remove(0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidx25as() {
+      shared_db_idx256_store(0, 0, 0, 0, NULL, 0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidx25au() {
+      shared_db_idx256_update(0, 0, NULL, 0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidx25ar() {
+      shared_db_idx256_remove(0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxdbs(){
+      shared_db_idx_double_store(0, 0, 0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxdbu(){
+      shared_db_idx_double_update(0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxdbr(){
+      shared_db_idx_double_remove(0);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxldbs (){
+      shared_db_idx_long_double_store(0, 0, 0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxldbu(){
+      shared_db_idx_long_double_update(0, 0, NULL);
+      return true;
+   }
+   ACTION_TYPE
+   bool sdbidxldbr(){
+      shared_db_idx_long_double_remove(0);
+      return true;
+   }
+
    ACTION_TYPE
    bool senddefer(){
       send_deferred(0, 0, NULL, 0, 0);
@@ -246,7 +379,7 @@ db_idx_long_double_remove
       return true;
    }
    ACTION_TYPE
-   bool sendcfiil(){     
+   bool sendcfiil(){
       send_context_free_inline(NULL, 0);
       return true;
    }

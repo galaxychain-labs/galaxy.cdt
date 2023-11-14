@@ -6,6 +6,7 @@
 #include "action.hpp"
 #include "../../core/eosio/print.hpp"
 #include "multi_index.hpp"
+#include "shared_multi_index.hpp"
 #include "dispatcher.hpp"
 #include "contract.hpp"
 
