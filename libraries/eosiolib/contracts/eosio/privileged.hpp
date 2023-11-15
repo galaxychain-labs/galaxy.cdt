@@ -283,7 +283,7 @@ namespace eosio {
     * @param enabled - enabled status (true or false).
     */
    __attribute__((eosio_wasm_import))
-   void register_shard( name name, bool enabled ) {
+   inline void register_shard( name name, bool enabled ) {
       internal_use_do_not_use::register_shard( name.value, enabled );
    }
 }
