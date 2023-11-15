@@ -39,6 +39,9 @@ namespace eosio {
 
          __attribute__((eosio_wasm_import))
          int get_context_free_data( uint32_t, char*, size_t);
+
+         __attribute__((eosio_wasm_import))
+         uint64_t get_shard_name();
       }
    }
 
@@ -289,5 +292,15 @@ namespace eosio {
     */
    inline int get_context_free_data( uint32_t index, char* buff, size_t size ) {
       return internal_use_do_not_use::get_context_free_data(index, buff, size);
+   }
+
+   /**
+    * Retrieves the current transaction's shard name
+    *
+    * @brief Retrieves the current transaction's shard name
+    * @return the current transaction's shard name
+   */
+   inline name get_shard_name() {
+      return name(internal_use_do_not_use::get_shard_name());
    }
 }

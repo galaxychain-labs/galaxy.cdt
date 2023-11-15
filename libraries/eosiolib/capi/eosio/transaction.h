@@ -156,6 +156,15 @@ int get_action( uint32_t type, uint32_t index, char* buff, size_t size );
 __attribute__((eosio_wasm_import))
 int get_context_free_data( uint32_t index, char* buff, size_t size );
 
+/**
+ * Retrieves the current transaction's shard name
+ *
+ * @brief Retrieves the current transaction's shard name
+ * @return the current transaction's shard name
+*/
+__attribute__((eosio_wasm_import))
+capi_name get_shard_name();
+
 #ifdef __cplusplus
 }
 #endif

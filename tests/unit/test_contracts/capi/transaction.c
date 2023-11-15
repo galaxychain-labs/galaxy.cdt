@@ -11,4 +11,5 @@ void test_transaction( void ) {
    expiration();
    get_action(0, 0, NULL, 0);
    get_context_free_data(0, NULL, 0);
+   get_shard_name();
 }
