@@ -37,7 +37,7 @@ namespace eosio {
          int64_t set_proposed_producers_ex( uint64_t producer_data_format, char *producer_data, uint32_t producer_data_size );
 
          __attribute__((eosio_wasm_import))
-         void register_shard( uint64_t name, bool enabled );
+         int64_t register_shard_packed( const char* data, uint32_t datalen );
       }
    }
 
@@ -169,6 +169,23 @@ namespace eosio {
       )
    };
 
+   enum class shard_type: uint8_t {
+      normal      = 0,
+      privacy     = 1
+   };
+
+   struct registered_shard {
+      eosio::name          name;          //< name should not be changed within a chainbase modifier lambda
+      eosio::shard_type    shard_type     = eosio::shard_type::normal;
+      eosio::name          owner;
+      bool                 enabled        = false;
+      uint8_t              opts           = 0; ///< options
+
+      EOSLIB_SERIALIZE(eosio::registered_shard, (name)(shard_type)(owner)(enabled)(opts))
+   };
+
+   using registered_shard_var = std::variant<registered_shard>;
+
    /**
     *  Set the blockchain parameters
     *
@@ -276,14 +293,13 @@ namespace eosio {
    }
 
    /**
-    * Register shard, include `enabled` status.
+    * Register shard
     *
     * @ingroup privileged
-    * @param name - name of the shard that we want to register.
-    * @param enabled - enabled status (true or false).
+    * @param shard - shard that we want to register.
     */
-   __attribute__((eosio_wasm_import))
-   inline void register_shard( name name, bool enabled ) {
-      internal_use_do_not_use::register_shard( name.value, enabled );
+   inline int64_t register_shard(const registered_shard_var& shard ) {
+      auto packed_shard = eosio::pack( shard );
+      internal_use_do_not_use::register_shard_packed( (char*)packed_shard.data(), packed_shard.size() );
    }
 }

@@ -125,10 +125,23 @@ public:
    }
    ACTION_TYPE
    bool regshard() {
-      auto shard = "sub.shard1"_n;
       auto enabled = true;
-      eosio::cout << "register shard:" << shard.to_string() << ", enabled:" << enabled << "\n";
-      register_shard(shard, enabled);
+      eosio::registered_shard shard = {
+         .name          = "sub.shard1"_n,
+         .shard_type    = eosio::shard_type::normal,
+         .owner         = "owner.shard1"_n,
+         .enabled       = true,
+         .opts          = 0
+      };
+      eosio::cout << "register shard"
+                  << "{name:"          << shard.name.to_string()
+                  << ", shard_type:"   << shard.shard_type
+                  << ", enabled:"      << shard.enabled
+                  << ", owner:"        << shard.owner.to_string()
+                  << ", enabled:"      << shard.enabled
+                  << ", opts:"         << shard.opts
+                  << "\n";
+      register_shard(shard);
       return true;
    }
 /*  all tested

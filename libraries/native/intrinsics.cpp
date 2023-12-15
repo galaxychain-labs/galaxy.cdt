@@ -47,8 +47,8 @@ extern "C" {
    void preactivate_feature( const capi_checksum256* feature_digest ) {
       return intrinsics::get().call<intrinsics::preactivate_feature>(feature_digest);
    }
-   void register_shard( capi_name name, bool enabled ) {
-      return intrinsics::get().call<intrinsics::register_shard>(name, enabled);
+   int64_t register_shard_packed( const char* data, uint32_t datalen ) {
+      return intrinsics::get().call<intrinsics::register_shard_packed>(data, datalen);
    }
    uint32_t get_active_producers( capi_name* producers, uint32_t datalen ) {
       return intrinsics::get().call<intrinsics::get_active_producers>(producers, datalen);

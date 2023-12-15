@@ -54,7 +54,7 @@ intrinsic_macro(is_privileged) \
 intrinsic_macro(set_privileged) \
 intrinsic_macro(is_feature_activated) \
 intrinsic_macro(preactivate_feature) \
-intrinsic_macro(register_shard) \
+intrinsic_macro(register_shard_packed) \
 intrinsic_macro(get_active_producers) \
 intrinsic_macro(db_idx64_store) \
 intrinsic_macro(db_idx64_remove) \

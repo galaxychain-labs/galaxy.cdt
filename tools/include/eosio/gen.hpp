@@ -914,7 +914,7 @@ struct generation_utils {
          "send_deferred",
          "send_inline",
          "send_context_free_inline",
-         "register_shard"
+         "register_shard_packed"
       };
 
       return write_host_funcs.count(func_decl->getNameInfo().getAsString()) >= 1;

@@ -131,7 +131,7 @@ void preactivate_feature( const struct capi_checksum256* feature_digest );
  * @param enabled - enabled status (true or false).
  */
 __attribute__((eosio_wasm_import))
-void register_shard( capi_name name, bool enabled );
+int64_t register_shard_packed( const char* data, uint32_t datalen );
 
 #ifdef __cplusplus
 }
