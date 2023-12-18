@@ -7,6 +7,7 @@
 #include "system.hpp"
 #include "../../core/eosio/time.hpp"
 #include "../../core/eosio/serialize.hpp"
+#include "../../core/eosio/shard.hpp"
 
 #include <vector>
 
@@ -102,6 +103,8 @@ namespace eosio {
       unsigned_int    delay_sec = 0UL; /// number of seconds to delay transaction, default: 0
       name            shard_name = "main"_n;
       uint8_t         shard_type = 0;
+
+      inline eosio::shard_type get_shard_type() const { return eosio::shard_type(shard_type); }
 
       EOSLIB_SERIALIZE( transaction_header, (expiration)(ref_block_num)(ref_block_prefix)(max_net_usage_words)(max_cpu_usage_ms)(delay_sec)(shard_name)(shard_type) )
    };

@@ -128,7 +128,7 @@ public:
       auto enabled = true;
       eosio::registered_shard shard = {
          .name          = "sub.shard1"_n,
-         .shard_type    = eosio::shard_type::normal,
+         .shard_type    = (uint8_t)eosio::shard_type::normal,
          .owner         = "owner.shard1"_n,
          .enabled       = true,
          .opts          = 0

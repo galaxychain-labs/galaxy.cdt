@@ -4,6 +4,7 @@
 #include "../../core/eosio/crypto.hpp"
 #include "../../core/eosio/name.hpp"
 #include "../../core/eosio/serialize.hpp"
+#include "../../core/eosio/shard.hpp"
 
 namespace eosio {
 
@@ -169,14 +170,11 @@ namespace eosio {
       )
    };
 
-   enum class shard_type: uint8_t {
-      normal      = 0,
-      privacy     = 1
-   };
+
 
    struct registered_shard {
       eosio::name          name;          //< name should not be changed within a chainbase modifier lambda
-      eosio::shard_type    shard_type     = eosio::shard_type::normal;
+      uint8_t              shard_type     = (uint8_t)eosio::shard_type::normal;
       eosio::name          owner;
       bool                 enabled        = false;
       uint8_t              opts           = 0; ///< options
@@ -300,6 +298,6 @@ namespace eosio {
     */
    inline int64_t register_shard(const registered_shard_var& shard ) {
       auto packed_shard = eosio::pack( shard );
-      internal_use_do_not_use::register_shard_packed( (char*)packed_shard.data(), packed_shard.size() );
+      return internal_use_do_not_use::register_shard_packed( (char*)packed_shard.data(), packed_shard.size() );
    }
 }
