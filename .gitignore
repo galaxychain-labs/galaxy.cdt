@@ -50,3 +50,4 @@ __pycache__/
 .idea/
 .ccls-cache/
 CMakeLists.txt.user
+.build*

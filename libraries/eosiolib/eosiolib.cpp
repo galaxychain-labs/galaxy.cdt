@@ -157,4 +157,16 @@ namespace eosio {
       return actual_end;
    }
 
+   void get_xshard( const checksum256& xsh_id, xshard& xsh ) {
+
+      auto xsh_id_data = xsh_id.extract_as_byte_array();
+      auto xsh_id_data_ptr = reinterpret_cast<const internal_use_do_not_use::capi_checksum256*>( xsh_id_data.data() );
+      size_t size = internal_use_do_not_use::get_xshard_packed( xsh_id_data_ptr, nullptr, 0 );
+      eosio::check( size > 0, "xshard not found in native state db" );
+      char buf[size];
+      size_t new_size = internal_use_do_not_use::get_xshard_packed( xsh_id_data_ptr, buf, size );
+      eosio::check( new_size == size, "packed size of xshard is not expected" );
+      eosio::datastream<const char*> ds( buf, size );
+      ds >> xsh;
+   }
 } // namespace eosio

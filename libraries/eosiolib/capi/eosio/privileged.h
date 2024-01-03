@@ -133,6 +133,19 @@ void preactivate_feature( const struct capi_checksum256* feature_digest );
 __attribute__((eosio_wasm_import))
 int64_t register_shard_packed( const char* data, uint32_t datalen );
 
+/**
+ * Retrieve the xshard info by xsh_id.
+ * @ingroup privileged
+ *
+ * @param xsh_id - the input xshard id.
+ * @param data - output buffer of the xshard info, only retrieved if sufficent size to hold packed data.
+ * @param datalen - size of the data buffer, 0 to report required size.
+ * @return size of the blockchain parameters, 0 if xshard not exist
+ * @pre `data` is a valid pointer to a range of memory at least `datalen` bytes long
+ * @post `data` is filled with packed blockchain parameters
+ */
+uint32_t get_xshard_packed( const struct capi_checksum256* xsh_id, char* data, uint32_t datalen );
+
 #ifdef __cplusplus
 }
 #endif

@@ -50,6 +50,9 @@ extern "C" {
    int64_t register_shard_packed( const char* data, uint32_t datalen ) {
       return intrinsics::get().call<intrinsics::register_shard_packed>(data, datalen);
    }
+   uint32_t get_xshard_packed( const struct capi_checksum256* xsh_id, char* data, uint32_t datalen ) {
+      return intrinsics::get().call<intrinsics::get_xshard_packed>(xsh_id, data, datalen);
+   }
    uint32_t get_active_producers( capi_name* producers, uint32_t datalen ) {
       return intrinsics::get().call<intrinsics::get_active_producers>(producers, datalen);
    }
